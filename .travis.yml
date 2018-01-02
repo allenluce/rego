@@ -1,0 +1,19 @@
+language: go
+go:
+  - 1.4
+  - 1.5
+  - 1.6
+  - 1.7
+  - 1.8
+  - 1.9
+  - tip
+
+before_script:
+  - go get github.com/onsi/ginkgo/ginkgo
+  - go get golang.org/x/tools/cmd/cover
+
+script:
+  - ginkgo -r --randomizeAllSpecs --randomizeSuites -coverprofile=coverage.txt -covermode=atomic --race --trace
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
